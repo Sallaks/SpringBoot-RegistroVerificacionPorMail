@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
 
                 String link = "http://localhost:8080/cobfirm_register?token=" + token;
 
-                emailService.send(user.getEmail(), token);
+                emailService.send(user.getEmail(), link);
 
                 throw new ErrorService("Debe activar el usuario, porfavor revise su mail");
             } else {
