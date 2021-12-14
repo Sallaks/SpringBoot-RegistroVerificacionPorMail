@@ -35,31 +35,9 @@ public class UserService implements UserDetailsService {
                 .isPresent();
 
         if (userExists) {
-
-            // si no esta confirmado, pero esta registrado
-            // falta ver si el tiempo pasa para crear un token nuevo
-            if (!user.isEnabled()) {
-                String token = UUID.randomUUID().toString();
-
-                ConfirmationToken confirmationToken = new ConfirmationToken(
-                        token,
-                        LocalDateTime.now(),
-                        LocalDateTime.now().plusMinutes(15),
-                        user
-                );
-                confirmationTokenService.saveConfirmationToken(
-                        confirmationToken);
-
-                String link = "http://localhost:8080/cobfirm_register?token=" + token;
-
-                emailService.send(user.getEmail(), link);
-
-                throw new ErrorService("Debe activar el usuario, porfavor revise su mail");
-            } else {
-                throw new ErrorService("El email ya esta registrado");
-            }
-
+            throw new ErrorService("El email ya esta registrado");
         }
+
 
         String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
