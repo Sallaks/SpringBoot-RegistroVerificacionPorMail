@@ -1,18 +1,13 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.Entitys.User;
 import com.example.demo.Exception.ErrorService;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Services.ConfirmationTokenService;
 import com.example.demo.Services.RegistrationService;
 import com.example.demo.Services.UserService;
 import java.net.MalformedURLException;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,31 +66,13 @@ public class MainController {
     
     @GetMapping("/login")
     public String login(ModelMap model, @RequestParam(required = false) String error,
-            @RequestParam(required = false) String logout) {
+            @RequestParam(required = false) String logout, HttpServletRequest request) {
 
-        /*
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if ((authentication instanceof AnonymousAuthenticationToken)) { -> usuario no  logueado
+        // Agregue a /login html param.error utilizo el erro que envio a la url
+//        if (error != null) {
+//         
+//        }
 
-                model.put("error", "Active la cuenta en su mail");
-            }*/
-        
-        
-        if (error != null) {
-          
-            /*
-            Optional<User> response = userRepository.findByEmail(username);
-
-            if (response.isPresent()) {
-                User user = response.get();
-                if (!user.isEnabled()) {
-                     model.put("error", "Active su cuenta"); 
-                }
-            }*/
-            
-            model.put("error", "Nombre de usuario o contraseña incorrecta");  
-        }
-        
         if (logout != null) {
             model.put("logout", "Ha salido correctamente");
         }
