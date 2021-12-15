@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +38,7 @@ public class User implements UserDetails{
        
     }
     
-    
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -72,7 +73,7 @@ public class User implements UserDetails{
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled() {      
         return enabled; //To change body of generated methods, choose Tools | Templates.
     }
 

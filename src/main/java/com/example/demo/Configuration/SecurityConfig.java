@@ -18,6 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
     @Autowired
     public UserService userService;
+    
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,5 +46,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .logoutSuccessUrl("/login?logout")
                 .permitAll().and().csrf().disable();
     }
-    
+   
 }
