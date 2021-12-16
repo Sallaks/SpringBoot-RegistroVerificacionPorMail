@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Exception.ErrorService;
+import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Services.ConfirmationTokenService;
 import com.example.demo.Services.RegistrationService;
 import com.example.demo.Services.UserService;
@@ -28,6 +29,9 @@ public class MainController {
     
     @Autowired
     RegistrationService registrationService;
+    
+    @Autowired
+    UserRepository userRepository;
     
     @GetMapping("")
     public String index(){
@@ -60,13 +64,14 @@ public class MainController {
         return "redirect:/";
     }
     
-     @GetMapping("/login")
+    @GetMapping("/login")
     public String login(ModelMap model, @RequestParam(required = false) String error,
-            @RequestParam(required = false) String logout) {
+            @RequestParam(required = false) String logout, HttpServletRequest request) {
 
-        if (error != null) {
-            model.put("error", "Nombre Usuario o clave Incorrecto");
-        }
+        // Agregue a /login html param.error utilizo el erro que envio a la url
+//        if (error != null) {
+//         
+//        }
 
         if (logout != null) {
             model.put("logout", "Ha salido correctamente");

@@ -71,13 +71,29 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
-        Optional<User> response = userRepository.findByEmail(email);
+        boolean accountNonExpired = true;
+        boolean accountNonLocked = true;
+        boolean credentialsNonExpired = true;
 
-        if (response.isPresent()) {
+        try {
+            Optional<User> response = userRepository.findByEmail(email);
+            if (!response.isPresent()) {
+                throw new UsernameNotFoundException("Usuario no encontrado");
+            }
+
             User user = userRepository.findByEmail(email).get();
-            return user;
-        } else {
-            throw new UsernameNotFoundException("Usuario no encontrado");
+            return new org.springframework.security.core.userdetails.User(
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.isEnabled(),
+                    accountNonExpired,
+                    credentialsNonExpired,
+                    accountNonLocked,
+                    user.getAuthorities());
+        } catch (Exception e) {
+            System.out.println("aAaAaAaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + e);
+            throw new RuntimeException(e);
+            
         }
     }
 }

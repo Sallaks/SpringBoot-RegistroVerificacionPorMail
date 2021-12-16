@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="es"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,8 +42,8 @@
                                 <strong th:text="${success}" ></strong>
                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                  </div>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"  th:if="${error}">
-                                <strong th:text="${error}" ></strong>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert"  th:if="${param.error != null}">
+                                <strong th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}" ></strong>
                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                  </div>
     
