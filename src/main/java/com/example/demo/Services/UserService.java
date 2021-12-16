@@ -84,7 +84,7 @@ public class UserService implements UserDetailsService {
             User user = userRepository.findByEmail(email).get();
             return new org.springframework.security.core.userdetails.User(
                     user.getEmail(),
-                    user.getPassword().toLowerCase(),
+                    user.getPassword(),
                     user.isEnabled(),
                     accountNonExpired,
                     credentialsNonExpired,

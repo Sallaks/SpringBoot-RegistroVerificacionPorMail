@@ -1,4 +1,4 @@
-package com.example.demo.Configuration;
+package com.example.demo.Exception;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -29,7 +29,6 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         
         setDefaultFailureUrl("/login?error=true");
         
-        System.out.println("Exception de AuthenticationException" + exception.getMessage());
 
         super.onAuthenticationFailure(request, response, exception);
 
@@ -41,8 +40,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
         if (exception.getMessage().equalsIgnoreCase("User is disabled")) {
             errorMessage = messages.getMessage("auth.message.disabled", null, locale);
-        } else if (exception.getMessage().equalsIgnoreCase("User account has expired")) {
-            errorMessage = messages.getMessage("auth.message.expired", null, locale);
+//        } else if (exception.getMessage().equalsIgnoreCase("User account has expired")) {
+//            errorMessage = messages.getMessage("auth.message.expired", null, locale);
         }
 
         request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
