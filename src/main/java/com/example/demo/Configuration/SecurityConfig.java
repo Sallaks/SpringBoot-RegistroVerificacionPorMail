@@ -17,8 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
     @Autowired
-    public UserService userService;
+    private UserService userService;
     
+    @Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .usernameParameter("username") // Como viajan los datos del logueo
                 .passwordParameter("password")// Como viajan los datos del logueo
                 .defaultSuccessUrl("/") // A que URL viaja
+                .failureHandler(customAuthenticationFailureHandler) // Indico el manejo de error
                 .permitAll()
                 .and().logout() // Aca configuro la salida
                 .logoutUrl("/logout")

@@ -1,12 +1,12 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Configuration.CustomAuthenticationFailureHandler;
 import com.example.demo.Exception.ErrorService;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Services.ConfirmationTokenService;
 import com.example.demo.Services.RegistrationService;
 import com.example.demo.Services.UserService;
 import java.net.MalformedURLException;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,28 +22,34 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MainController {
     
     @Autowired
-    UserService userService;
+    private UserService userService;
     
     @Autowired
-    ConfirmationTokenService confirmationTokenService;
+    private ConfirmationTokenService confirmationTokenService;
     
     @Autowired
-    RegistrationService registrationService;
+    private RegistrationService registrationService;
     
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    
+    @Autowired
+    private CustomAuthenticationFailureHandler failureHandler;
+    
     
     @GetMapping("")
     public String index(){
-        // mensaje de logueo existoso
+        //TODO mensaje de logueo existoso
         return "index.html";
     }
+    
     
     @GetMapping("/register")
     public String displayRegister() {
 
         return "register";
     }
+    
     
     @PostMapping("/register")
     public String Register(ModelMap model,RedirectAttributes redirAttrs, 
@@ -64,21 +70,20 @@ public class MainController {
         return "redirect:/";
     }
     
+    
     @GetMapping("/login")
     public String login(ModelMap model, @RequestParam(required = false) String error,
-            @RequestParam(required = false) String logout, HttpServletRequest request) {
-
-        // Agregue a /login html param.error utilizo el erro que envio a la url
-//        if (error != null) {
-//         
+            @RequestParam(required = false) String logout) {
+        
+//      TODO: Configurar logout
+//
+//        if (logout != null) {
+//            model.put("logout", "Ha salido correctamente");
 //        }
-
-        if (logout != null) {
-            model.put("logout", "Ha salido correctamente");
-        }
 
         return "login";
     }
+    
     
     @GetMapping("/confirm_register")
     public String confirm(@RequestParam("token") String token, RedirectAttributes redirAttrs) throws ErrorService{
@@ -93,5 +98,4 @@ public class MainController {
 
         return "redirect:/login"; 
     }
-
 }

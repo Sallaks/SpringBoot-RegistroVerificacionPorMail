@@ -4,6 +4,7 @@ package com.example.demo.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ public class EmailService {
     @Autowired
     JavaMailSender javaMailSender;
     
+    @Async
     public String send(String email, String link) {
 
         SimpleMailMessage mensaje = new SimpleMailMessage();
@@ -23,7 +25,5 @@ public class EmailService {
         
         return "enviado";
 
-    }
-    
-    
+    } 
 }

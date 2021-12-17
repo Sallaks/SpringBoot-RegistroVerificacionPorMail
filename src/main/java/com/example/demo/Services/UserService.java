@@ -23,10 +23,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private ConfirmationTokenService confirmationTokenService;
-
-    @Autowired
-    private EmailService emailService;
-
+    
+    
     @Transactional
     public String signUpUser(User user) throws ErrorService {
 
@@ -61,6 +59,7 @@ public class UserService implements UserDetailsService {
         return token;
     }
 
+    
     public int enableUser(String email) {
         System.out.println("Entre a enable user");
         return userRepository.enableUser(email);
@@ -91,9 +90,7 @@ public class UserService implements UserDetailsService {
                     accountNonLocked,
                     user.getAuthorities());
         } catch (Exception e) {
-            System.out.println("aAaAaAaAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + e);
-            throw new RuntimeException(e);
-            
+            throw new RuntimeException(e);  
         }
     }
 }
